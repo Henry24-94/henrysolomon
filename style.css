@@ -7,15 +7,14 @@ html, body {
 }
 
 body {
-  min-height: 100vh;            /* FIX 1: required */
-  display: flex;                /* FIX 2 */
-  flex-direction: column;       /* FIX 3 */
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   background: #f9f9f9;
   color: #222;
   line-height: 1.6;
 }
-
 
 * {
   margin: 0;
@@ -80,6 +79,27 @@ header {
   color: white;
 }
 
+/* --- ADDING PURE-CSS HAMBURGER --- */
+
+#menu-toggle {
+  display: none;
+}
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  cursor: pointer;
+}
+
+.hamburger span {
+  width: 26px;
+  height: 3px;
+  background: #222;
+  border-radius: 2px;
+  transition: 0.3s;
+}
+
 /* ------------------------------
    GENERAL PAGE LAYOUT
 --------------------------------- */
@@ -87,7 +107,7 @@ main {
   max-width: 1100px;
   margin: 40px auto;
   padding: 0 20px;
-  flex: 1;              /* <-- FIX: allows footer to push to bottom */
+  flex: 1;
 }
 
 h1 {
@@ -178,7 +198,7 @@ p {
   background: #fff;
   padding: 20px;
   border-radius: 12px;
-  box-shadow: 0 2px 10pxrgba(0,0,0,0.1);
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   font-size: 20px;
   display: inline-block;
 }
@@ -210,6 +230,14 @@ p {
    RESPONSIVE MOBILE
 --------------------------------- */
 @media (max-width: 768px) {
+
+  /* --- HERO --- */
+  .hero img {
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+  }
+
   .hero h1 {
     font-size: 36px;
   }
@@ -222,8 +250,38 @@ p {
     font-size: 16px;
   }
 
+  /* --- NAVBAR MOBILE MENU --- */
   .nav-links {
-    gap: 10px;
+    position: absolute;
+    top: 65px;
+    left: 0;
+    right: 0;
+    background: #fff;
+    flex-direction: column;
+    gap: 15px;
+    padding: 20px 0;
+    text-align: center;
+    display: none;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  }
+
+  #menu-toggle:checked ~ .nav-links {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
+
+  /* Hamburger animation */
+  #menu-toggle:checked + .hamburger span:nth-child(1) {
+    transform: rotate(45deg) translate(5px, 5px);
+  }
+  #menu-toggle:checked + .hamburger span:nth-child(2) {
+    opacity: 0;
+  }
+  #menu-toggle:checked + .hamburger span:nth-child(3) {
+    transform: rotate(-45deg) translate(5px, -5px);
   }
 }
 
@@ -234,9 +292,8 @@ footer {
   background: #111;
   color: #fff;
   text-align: center;
-  margin-top: auto;
+  margin-top: auto; /* keeps footer at bottom */
 }
-   /* <-- FIX: footer stays at the bottom */
 
 footer p {
   margin: 0;
@@ -250,5 +307,3 @@ footer .footer-container {
   margin: 0;
   padding: 0;
 }
-
-
